@@ -6,9 +6,6 @@ from discord.ext import commands, tasks
 
 bot = commands.Bot(command_prefix="/", description="Bot de Thomkraft !")
 
-bottest = ["aaaaaa",
-           "bbbbbb",
-           "cccccc"]
 
 botgame = ["Bot de Thomkraft !",
            "Stats bedwars manuelle !"]
