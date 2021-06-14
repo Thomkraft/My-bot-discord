@@ -47,7 +47,7 @@ async def on_message(message):
                            f":three: {emojis[6]}{emojis[7]}{emojis[8]} :three:\n"
                            f"<:empty:844822245150556162> :regional_indicator_a: :regional_indicator_b: :regional_indicator_c: <:empty:844822245150556162>")
         await channel.send(f"à {player1.mention} de commencer tape /play [lettre] [chiffre]!")
-        pickle.dump(list, open("../BOT THOMGUERRE commandes/list.txt", "wb"))
+        pickle.dump(list, open("list.txt", "wb"))
         pickle.dump(player1id, open("player1id.txt", "wb"))
         turn = 1
         pickle.dump(turn, open("turn.txt", "wb"))
@@ -61,7 +61,7 @@ async def on_message(message):
             casemorpion = "<:testmorpion:844660659585024061>"
             casecroix = "<:croixmorpion:844854506045833236>"
             casecercle = "<:cerclemorpion:844854320050339871>"
-            list = pickle.load(open("../BOT THOMGUERRE commandes/list.txt", "rb"))
+            list = pickle.load(open("list.txt", "rb"))
             print(list)
             lettretotal = ["a", "b", "c"]
             chiffretotal = [1,2,3]
@@ -114,7 +114,7 @@ async def on_message(message):
                                f"<:empty:844822245150556162> :regional_indicator_a: :regional_indicator_b: :regional_indicator_c: <:empty:844822245150556162>")
             await channel.send(f"Au tour de <@!{player2id}> de jouer !")
             print(list)
-            pickle.dump(list, open("../BOT THOMGUERRE commandes/list.txt", "wb"))
+            pickle.dump(list, open("list.txt", "wb"))
             turn = 2
             pickle.dump(turn, open("turn.txt", "wb"))
         elif turn == 2 and message.author.id == player2id:
@@ -122,7 +122,7 @@ async def on_message(message):
             casemorpion = "<:testmorpion:844660659585024061>"
             casecroix = "<:croixmorpion:844854506045833236>"
             casecercle = "<:cerclemorpion:844854320050339871>"
-            list = pickle.load(open("../BOT THOMGUERRE commandes/list.txt", "rb"))
+            list = pickle.load(open("list.txt", "rb"))
             print(list)
             lettretotal = ["a", "b", "c"]
             chiffretotal = [1, 2, 3]
