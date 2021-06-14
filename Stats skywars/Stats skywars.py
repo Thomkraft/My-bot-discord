@@ -3,6 +3,7 @@ import pickle
 import os
 import random
 from discord.ext import commands, tasks
+#a
 
 bot = commands.Bot(command_prefix="/", description="Bot de Thomkraft !")
 
