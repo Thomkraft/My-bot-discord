@@ -3,9 +3,8 @@ import pickle
 import os
 import random
 from discord.ext import commands, tasks
-#a
-#teste sdtuqgvuguycgsugu
-#bb
+
+
 bot = commands.Bot(command_prefix="/", description="Bot de Thomkraft !")
 
 botgame = ["Bot de Thomkraft !",
@@ -46,26 +45,81 @@ async def on_message(message):
                 await message.channel.send("Tu a deja effectué cette commande !")
 
         elif message.content.startswith("/register "):
-            try:
-                test = message.content.split(" ")[2]
-                await message.channel.send("Erreure dans la commande merci de recommencer !")
-                return
-            except:
-                user = message.content.split(" ")[1]
-                userid = message.content.split(" ")[1][3:-1]
-                os.mkdir(str(userid))
-                pickle.dump(0, open(f"{userid}/toplvl.txt", "wb"))
-                pickle.dump(0, open(f"{userid}/topwins.txt", "wb"))
-                pickle.dump(0, open(f"{userid}/topkills.txt", "wb"))
-                pickle.dump(0, open(f"{userid}/prestige.txt", "wb"))
-                pickle.dump(0, open(f"{userid}/niveaux.txt", "wb"))
-                pickle.dump(0, open(f"{userid}/bestwinstreak.txt", "wb"))
-                pickle.dump(0, open(f"{userid}/kills.txt", "wb"))
-                pickle.dump(0, open(f"{userid}/win.txt", "wb"))
-                pickle.dump(0, open(f"{userid}/defaite.txt", "wb"))
-                await message.channel.send(f"Les dossier de {user} on bien été crée faites /help pour voir les commandes ! ")
+            list_role = message.author.roles
+            permission = False
+            for role in list_role:
+                namerole = role.name
+                if namerole in ["Admin", "OWNER"]:
+                    permission = True
+            if permission == True:
+                try:
+                    test = message.content.split(" ")[2]
+                    await message.channel.send("Erreure dans la commande merci de recommencer !")
+                    return
+                except:
+                    user = message.content.split(" ")[1]
+                    userid = message.content.split(" ")[1][3:-1]
+                    os.mkdir(str(userid))
+                    pickle.dump(0, open(f"{userid}/toplvl.txt", "wb"))
+                    pickle.dump(0, open(f"{userid}/topwins.txt", "wb"))
+                    pickle.dump(0, open(f"{userid}/topkills.txt", "wb"))
+                    pickle.dump(0, open(f"{userid}/prestige.txt", "wb"))
+                    pickle.dump(0, open(f"{userid}/niveaux.txt", "wb"))
+                    pickle.dump(0, open(f"{userid}/bestwinstreak.txt", "wb"))
+                    pickle.dump(0, open(f"{userid}/kills.txt", "wb"))
+                    pickle.dump(0, open(f"{userid}/win.txt", "wb"))
+                    pickle.dump(0, open(f"{userid}/defaite.txt", "wb"))
+                    await message.channel.send(f"Les dossier de {user} on bien été crée faites /help pour voir les commandes ! ")
+            else:
+                await message.channel.send("Tu n'a pas le role nécessaire pour effectuer cette commande essaye **/register ci tu n'a pas encore fait** !")
 
         # WIN
+
+        elif message.content.startswith("/setwinadmin "):
+            list_role = message.author.roles
+            permission = False
+            for role in list_role:
+                namerole = role.name
+                if namerole in ["Admin", "OWNER"]:
+                    permission = True
+            if permission == True:
+                try:
+                    userid = message.content.split(" ")[1][3:-1]
+                    nb_win_a_set = int(message.content.split(" ")[2])
+                    if nb_win_a_set >= 0:
+                        if os.path.isdir(userid):
+                            pickle.dump(nb_win_a_set, open(f"{userid}/win.txt", "wb"))
+                            await message.channel.send(f"**{nb_win_a_set}** win ont été set pour le joueur <@!{userid}> !")
+                        else:
+                            await message.channel.send("Le joueur a qui il faut set c'est win ne c'est pas regisster !")
+                            return
+                    else:
+                        await message.channel.send("Le nombre de win a set doit étre supérieur a **0** !")
+                        return
+                except:
+                    await message.channel.send("Une erreure est survenue merci de recommencer !")
+                    return
+            else:
+                await message.channel.send("Tu n'a pas le role nécessaire pour effectuer cette commande essaye **/setwin [ton nb de win]** !")
+
+        elif message.content.startswith("/setwin "):
+            try:
+                check = message.content.split(" ")[2]
+                await message.channel.send("Merci de ne pas metre de charactere apres le nb de win a set !")
+                return
+            except:
+                userid = message.author.id
+                nb_win_a_set = message.content.split(" ")[1]
+                try:
+                    if int(nb_win_a_set) >= 0:
+                        pickle.dump(nb_win_a_set, open(f"{userid}/win.txt", "wb"))
+                        await message.channel.send(f"{nb_win_a_set} win t'on été set <@!{userid}> !")
+                    elif nb_win_a_set < 0:
+                        await message.channel.send("Le nb de win a set doit etre superieur a **0** !")
+                        return
+                except:
+                    await message.channel.send("Une erreure est survenue merci de recommencer !")
+
 
         elif message.content.startswith("+win "):
             userid = message.author.id
@@ -416,7 +470,7 @@ async def on_message(message):
  
  on ete ajoute a @joueur
  
- faire un /help de calite
+ faire un /help de calité
  
  ✅ verifier si negatif ne pas faire
  
