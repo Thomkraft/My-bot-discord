@@ -2,7 +2,7 @@ import discord
 from discord.ext import commands
 import pickle
 
-
+#aaaa
 bot = commands.Bot(command_prefix="/",description="Bot de Thomkraft !")
 
 @bot.event
