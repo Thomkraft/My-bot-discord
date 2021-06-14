@@ -114,9 +114,6 @@ async def on_message(message):
                     if int(nb_win_a_set) >= 0:
                         pickle.dump(nb_win_a_set, open(f"{userid}/win.txt", "wb"))
                         await message.channel.send(f"{nb_win_a_set} win t'on été set <@!{userid}> !")
-                    elif nb_win_a_set < 0:
-                        await message.channel.send("Le nb de win a set doit etre superieur a **0** !")
-                        return
                 except:
                     await message.channel.send("Une erreure est survenue merci de recommencer !")
 
@@ -418,11 +415,21 @@ async def on_message(message):
             except:
                 pass
             if message.content == ("/stats"):
+                username = message.author.name
                 userid = str(message.author.id)
+                authorname = message.author.name
+                embed = discord.Embed(title=f"**Stats de {username}**", description="**Stats skywars rinaorc !**",
+                                      colour=discord.Colour.blue())
+                embed.set_author(name=authorname, icon_url=message.author.avatar_url)
             else:
                 try:
                     user = message.content.split(" ")[1]
                     userid = message.content.split(" ")[1][3:-1]
+                    username = await bot.fetch_user(userid)
+                    authorname = message.author.name
+                    embed = discord.Embed(title=f"**Stats de {username.name}**", description="**Stats skywars rinaorc !**",
+                                          colour=discord.Colour.blue())
+                    embed.set_author(name=authorname, icon_url=message.author.avatar_url)
                 except:
                     await message.channel.send("Une erreur est survenue merci de recommencer !")
                     return
@@ -436,22 +443,18 @@ async def on_message(message):
                 kills = pickle.load(open(f"{userid}/kills.txt", "rb"))
                 win = pickle.load(open(f"{userid}/win.txt", "rb"))
                 defaites = pickle.load(open(f"{userid}/defaite.txt", "rb"))
-                await message.channel.send(f"__Les stats skywars de <@!{userid}> sont : __\n"
-                                           f"**win** : *{win}* \n"
-                                           f"**defaites** : *{defaites}* \n"
-                                           f"**kill** : *{kills}* \n"
-                                           f"**best winstreak** : *{bestwinstreak}* \n"
-                                           f"**niveaux** : *{niveau}* \n"
-                                           f"**prestige** : *{prestige}* \n"
-                                           f"**classement kills** : *{topkill}* \n"
-                                           f"**classement wins** : *{topwin}* \n"
-                                           f"**classement lvl** : *{toplvl}*")
-            else:
-                await message.channel.send(f"{user} ne c'est pas enregisstré !")
 
+                embed.add_field(name="**win**", value=f"*{win}*")
+                embed.add_field(name="**defaites**", value=f"*{defaites}*")
+                embed.add_field(name="**kill**", value=f"*{kills}*")
+                embed.add_field(name="**best winstreak**", value=f"*{bestwinstreak}*")
+                embed.add_field(name="**niveaux**", value=f"*{niveau}*")
+                embed.add_field(name="**prestige**", value=f"*{prestige}*")
+                embed.add_field(name="**Classement kills**", value=f"*{topkill}*")
+                embed.add_field(name="**Classement wins**", value=f"*{topwin}*")
+                embed.add_field(name="**Classement lvl**", value=f"*{toplvl}*")
 
-
-
+                await message.channel.send(embed=embed)
 
 """
  ❌  embeds
