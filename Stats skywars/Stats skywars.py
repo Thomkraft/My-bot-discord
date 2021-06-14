@@ -73,6 +73,32 @@ async def on_message(message):
             else:
                 await message.channel.send("Tu n'a pas le role nécessaire pour effectuer cette commande essaye **/register ci tu n'a pas encore fait** !")
 
+        # HELP
+
+        elif message.content == ("/help") or message.content == ("/aide"):
+            username = message.author.name
+            embed = discord.Embed(title=f"**Coucou {username}**", description="**Voici la lisste des commandes du serveur !**",
+                                  colour=discord.Colour.blue())
+            embed.set_author(name=username, icon_url=message.author.avatar_url)
+            embed.set_thumbnail(url="https://emoji.gg/assets/emoji/2309-help.png")
+            embed.add_field(name="**/stats**", value="Commande pour afficher tes propres stats !")
+            embed.add_field(name="**+win , -win , /setwin**", value="+win : Permet de rajouter le nombre de win choisit a tes stats \n"
+                                                                    "-win : Permet de suprimer le nombre de win choisit a tes stats \n"
+                                                                    "/setwin : permet de set tes win au nombre choisi ")
+            embed.add_field(name="**+defaite, -defaite**", value="+defaite : Permet de rajouter le nombre de defaites choisit a tes stats \n"
+                                                                 "-defaite : Permet de suprimer le nombre de defaites choisit a tes stats \n")
+            embed.add_field(name="**+kill , -kill**", value="+kill : Permet de rajouter le nombre de kills choisit a tes stats \n"
+                                                            "-kill : Permet de suprimer le nombre de kills choisit a tes stats \n")
+            embed.add_field(name="**/setwinstreak**", value="Permet de set ton winstreak")
+            embed.add_field(name="**+niveau , -niveau**", value="+niveau : Permet de rajouter le nombre de niveaux choisit a tes stats \n"
+                                                                "-niveau : Permet de suprimer le nombre de niveaux choisit a tes stats \n")
+            embed.add_field(name="**/prestige**", value="Permet d'augmenter d'un prestige une fois le niveau 100 atteint")
+            embed.add_field(name="**/settopkill**", value="Permet de set ton numéro dans le classement kill. ( la valeur ? signifie que ton top est inconnue )")
+            embed.add_field(name="**/settopwin**", value="Permet de set ton numéro dans le classement win. ( la valeur ? signifie que ton top est inconnue )")
+            embed.add_field(name="**/settoplvl**", value="Permet de set ton numéro dans le classement lvl. ( la valeur ? signifie que ton top est inconnue )")
+
+            await message.channel.send(embed=embed)
+
         # WIN
 
         elif message.content.startswith("/setwinadmin "):
@@ -444,6 +470,7 @@ async def on_message(message):
                 win = pickle.load(open(f"{userid}/win.txt", "rb"))
                 defaites = pickle.load(open(f"{userid}/defaite.txt", "rb"))
 
+                embed.set_thumbnail(url="https://emoji.gg/assets/emoji/2391-newspaper1.png")
                 embed.add_field(name="**win**", value=f"*{win}*")
                 embed.add_field(name="**defaites**", value=f"*{defaites}*")
                 embed.add_field(name="**kill**", value=f"*{kills}*")
@@ -476,6 +503,12 @@ async def on_message(message):
  faire un /help de calité
  
  ✅ verifier si negatif ne pas faire
+ 
+ ci erreure dans la commande repeter la commande avant de return
+ 
+ mettre toute les commande [commande] [joueur] [valeur] en commande admin
+ 
+ fais un /help admin reservé au admin avec les commm admin
  
  
  ✅ prestige max 5 
