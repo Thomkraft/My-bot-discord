@@ -4,7 +4,7 @@ import os
 import random
 from discord.ext import commands, tasks
 #a
-
+#bb
 bot = commands.Bot(command_prefix="/", description="Bot de Thomkraft !")
 
 botgame = ["Bot de Thomkraft !",
