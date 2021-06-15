@@ -81,23 +81,48 @@ async def on_message(message):
                                   colour=discord.Colour.blue())
             embed.set_author(name=username, icon_url=message.author.avatar_url)
             embed.set_thumbnail(url="https://emoji.gg/assets/emoji/2309-help.png")
+            embed.add_field(name="**/register**", value="Commande pour s'enregisstrer aupres du bot pour ensuite effectuer les autres commandes !")
             embed.add_field(name="**/stats**", value="Commande pour afficher tes propres stats !")
-            embed.add_field(name="**+win , -win , /setwin**", value="+win : Permet de rajouter le nombre de win choisit a tes stats \n"
-                                                                    "-win : Permet de suprimer le nombre de win choisit a tes stats \n"
-                                                                    "/setwin : permet de set tes win au nombre choisi ")
-            embed.add_field(name="**+defaite, -defaite**", value="+defaite : Permet de rajouter le nombre de defaites choisit a tes stats \n"
-                                                                 "-defaite : Permet de suprimer le nombre de defaites choisit a tes stats \n")
-            embed.add_field(name="**+kill , -kill**", value="+kill : Permet de rajouter le nombre de kills choisit a tes stats \n"
-                                                            "-kill : Permet de suprimer le nombre de kills choisit a tes stats \n")
-            embed.add_field(name="**/setwinstreak**", value="Permet de set ton winstreak")
-            embed.add_field(name="**+niveau , -niveau**", value="+niveau : Permet de rajouter le nombre de niveaux choisit a tes stats \n"
-                                                                "-niveau : Permet de suprimer le nombre de niveaux choisit a tes stats \n")
+            embed.add_field(name="**+win [value] \n, -win [value] \n, /setwin [value]**", value="+win : Permet de rajouter le nombre de win choisit a tes stats \n"
+                                                                                            "-win : Permet de suprimer le nombre de win choisit a tes stats \n"
+                                                                                            "/setwin : permet de set tes win au nombre choisi ")
+            embed.add_field(name="**+defaite [value],  -defaite [value]**", value="+defaite : Permet de rajouter le nombre de defaites choisit a tes stats \n"
+                                                                                 "-defaite : Permet de suprimer le nombre de defaites choisit a tes stats \n")
+            embed.add_field(name="**+kill [value],  -kill [value]**", value="+kill : Permet de rajouter le nombre de kills choisit a tes stats \n"
+                                                                           "-kill : Permet de suprimer le nombre de kills choisit a tes stats \n")
+            embed.add_field(name="**/setwinstreak [value]**", value="Permet de set ton winstreak")
+            embed.add_field(name="**+niveau [value], -niveau [value]**", value="+niveau : Permet de rajouter le nombre de niveaux choisit a tes stats \n"
+                                                                               "-niveau : Permet de suprimer le nombre de niveaux choisit a tes stats \n")
             embed.add_field(name="**/prestige**", value="Permet d'augmenter d'un prestige une fois le niveau 100 atteint")
-            embed.add_field(name="**/settopkill**", value="Permet de set ton numéro dans le classement kill. ( la valeur ? signifie que ton top est inconnue )")
-            embed.add_field(name="**/settopwin**", value="Permet de set ton numéro dans le classement win. ( la valeur ? signifie que ton top est inconnue )")
-            embed.add_field(name="**/settoplvl**", value="Permet de set ton numéro dans le classement lvl. ( la valeur ? signifie que ton top est inconnue )")
+            embed.add_field(name="**/settopkill [value]**", value="Permet de set ton numéro dans le classement kill. ( la valeur ? signifie que ton top est inconnue)")
+            embed.add_field(name="**/settopwin [value]**", value="Permet de set ton numéro dans le classement win. ( la valeur ? signifie que ton top est inconnue)")
+            embed.add_field(name="**/settoplvl [value]**", value="Permet de set ton numéro dans le classement lvl. ( la valeur ? signifie que ton top est inconnue)")
 
             await message.channel.send(embed=embed)
+
+        # HELP ADMIN
+
+        elif message.content == ("/help admin") or message.content == ("/aide admin"):
+            list_role = message.author.roles
+            permission = False
+            for role in list_role:
+                namerole = role.name
+                if namerole in ["Admin", "OWNER"]:
+                    permission = True
+            if permission == True:
+                username = message.author.name
+                embed = discord.Embed(title=f"**Coucou {username}**",
+                                      description="**Voici la lisste des commandes du serveur !**",
+                                      colour=discord.Colour.blue())
+                embed.set_author(name=username, icon_url=message.author.avatar_url)
+                embed.set_thumbnail(url="https://emoji.gg/assets/emoji/2309-help.png")
+                embed.add_field(name= "**/register [@player]**", value= "Permet de register un utilisateur qui n'y arrive pas tout seul bahaha")
+                embed.add_field(name= "**/setwinadmin [@player] [nb de win a set]**", value= "Permet de set les win d(un utilisateur")
+
+                await message.channel.send(embed=embed)
+
+            else:
+                await message.channel.send("Tu n'a pas les permitions necessaire pour effectuer cette commande essaye **/help** ou **/aide** !")
 
         # WIN
 
@@ -508,9 +533,14 @@ async def on_message(message):
  
  mettre toute les commande [commande] [joueur] [valeur] en commande admin
  
+ /lock qui verouille lutilisateur avec un role locked
+ 
  fais un /help admin reservé au admin avec les commm admin
  
+ /rest @player ou /reset qui permet de reset cest stats
  
+ /helpadmin [message] envoie un message dans un salon speciale pour une demande
+  
  ✅ prestige max 5 
  
  ✅faire ci lvl 100 afficher merci de faire /prestige pour augmenter d'un prestige !
