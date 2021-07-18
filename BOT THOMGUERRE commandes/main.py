@@ -340,14 +340,25 @@ async def getmutedrole(ctx):
 @bot.command()
 async def mute(ctx, member : discord.Member, *, reason = "Aucune raison n'a été donnée"):
     mutedrole = await getmutedrole(ctx)
+    listuserroles = member.roles
+    for roleuser in listuserroles:
+        if roleuser.name == "Mute server":
+            await ctx.channel.send("L'utilisateur que vous souhaitez mute l'est deja !")
+            return
     await member.add_roles(mutedrole, reason = reason)
     await ctx.channel.send(f"{member.mention} a été mute !")
 
 @bot.command()
 async def unmute(ctx, member : discord.Member, *, reason = "aucune raison n'a été donnée"):
-    mutedrole = await getmutedrole(ctx)
-    await member.remove_roles(mutedrole, reason = reason)
-    await ctx.channel.send(f"{member.mention} a été unmute !")
+    listuserroles = member.roles
+    for roleuser in listuserroles:
+        if roleuser.name == "Mute server":
+            mutedrole = await getmutedrole(ctx)
+            await member.remove_roles(mutedrole, reason = reason)
+            await ctx.channel.send(f"{member.mention} a été unmute !")
+            return
+    await ctx.channel.send("L'utilisateur que vous souhaitez unmute n'est pas mute !")
+    return
 
 
 '''
