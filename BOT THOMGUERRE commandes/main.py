@@ -386,5 +386,5 @@ mp lutilisateur dans les commandes ban,banid,mute,unmute,unban pour la raison
 merci @bot  tg enfait @user
 
 """
-bot.run("NzQyNzI1NzkwMTIyMjQ2MjUw.XzKTSw.m7WxTCdMG3YWQ9L-8FxaosnqDvY")
+
 # ❌,✅
