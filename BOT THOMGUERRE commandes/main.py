@@ -252,7 +252,7 @@ async def cuisiner(ctx):
         return message.author == ctx.message.author and ctx.message.channel == message.channel
 
     try:
-        recette = await bot.wait_for("message", timeout=10, check=checkmessage)
+        recette = await ot.wait_for("message", timeout=10, check=checkmessage)
     except:
         return
     message = await ctx.send(
